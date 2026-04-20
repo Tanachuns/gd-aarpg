@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://b4sse476kdci4"]
 
 [ext_resource type="Texture2D" uid="uid://c8kvuon14s4eh" path="res://Player/sprites/ExamplePlayerSprite.png" id="1_l8h54"]
+[ext_resource type="Script" uid="uid://btpd7ndypbfqb" path="res://Player/scripts/player_state_machine.gd" id="2_4ntmi"]
+[ext_resource type="Script" uid="uid://dmbfvs22inqlv" path="res://Player/scripts/state_idle.gd" id="3_btcbx"]
+[ext_resource type="Script" uid="uid://byyn6qitrmssn" path="res://Player/scripts/state_walk.gd" id="4_gwnis"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
 
@@ -144,3 +147,12 @@ hframes = 21
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=785121077]
 libraries/ = SubResource("AnimationLibrary_btcbx")
+
+[node name="StateMachine" type="Node" parent="." unique_id=473419399]
+script = ExtResource("2_4ntmi")
+
+[node name="idle" type="Node" parent="StateMachine" unique_id=1164217596]
+script = ExtResource("3_btcbx")
+
+[node name="walk" type="Node" parent="StateMachine" unique_id=1303779709]
+script = ExtResource("4_gwnis")

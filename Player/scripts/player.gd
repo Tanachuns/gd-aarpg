@@ -1,33 +1,28 @@
 class_name Player extends CharacterBody2D
 
-var speed:float = 100;
-var direction: Vector2 = Vector2.ZERO;
 
+var direction: Vector2 = Vector2.ZERO;
 var cardinal_direction : Vector2 = Vector2.DOWN;
-var state: String = "idle";
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer;
 @onready var sprite: Sprite2D = $Sprite2D;
-
+@onready var state_machine : PlayerStateMachine = $StateMachine
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	state_machine.Initialize(self)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-
+func _process(_delta: float) -> void:
 	direction.x = Input.get_action_strength("right")-Input.get_action_raw_strength("left");
 	direction.y = Input.get_action_strength("down")-Input.get_action_raw_strength("up");
-	velocity = direction*speed;
-	
-	if SetState() || SetDirection():
-		UpdateAnimation()	
-	
 	pass
 
 
-func _physics_process(delta: float) -> void:
+
+func _physics_process(_delta: float) -> void:
 	move_and_slide();
 
 
@@ -46,12 +41,6 @@ func SetDirection() -> bool:
 	sprite.scale.x  =-1 if cardinal_direction == Vector2.LEFT else 1
 	return true
 
-func SetState() -> bool:
-	var new_state: String = "idle" if direction == Vector2.ZERO else "walk"
-	if(new_state== state):
-		return false
-	state = new_state
-	return true
 	
 func AnimDirection() -> String:
 	if(cardinal_direction == Vector2.DOWN):
@@ -61,6 +50,6 @@ func AnimDirection() -> String:
 	else:
 		return "side"
 		
-func UpdateAnimation() -> void:
+func UpdateAnimation( state:String) -> void:
 	animation_player.play(state+"_"+AnimDirection())
 	pass

@@ -20,7 +20,7 @@ func  _physics_processs(delta)->void:
 	ChangeState(current_state.Physics(delta))
 	pass
 
-func  _handled_input(event)->void:
+func _unhandled_input(event: InputEvent) -> void:
 	ChangeState(current_state.HandleInput(event))
 	pass
 

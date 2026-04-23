@@ -1,6 +1,8 @@
 class_name State_Walk extends State
 @export  var move_speed : float = 100.0
 @onready var idle : State = $"../idle"
+@onready var attack : State = $"../attack"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -24,5 +26,7 @@ func  Process(_delta:float) -> State:
 func  Physics(_delta:float) -> State:
 	return null
 	
-func  HandleInput(_delta:float) -> State:
+func  HandleInput(_event:InputEvent) -> State:
+	if _event.is_action_pressed("attack")	:
+		return attack
 	return null

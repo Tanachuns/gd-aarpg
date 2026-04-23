@@ -1,6 +1,7 @@
 class_name State_Idle extends State
 
 @onready var walk : State = $"../walk"
+@onready var attack : State = $"../attack"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -21,5 +22,8 @@ func  Process(_delta:float) -> State:
 func  Physics(_delta:float) -> State:
 	return null
 	
-func  HandleInput(_delta:float) -> State:
+func  HandleInput(_event:InputEvent) -> State:
+	print(_event)
+	if _event.is_action_pressed("attack")	:
+		return attack
 	return null
